@@ -1,0 +1,28 @@
+
+@font-face {
+  font-family: 'QuickSand';
+  src: url(./Components/fonts/Quicksand-Regular.otf) ;
+}
+
+.faculty-profile h2
+{
+ padding : 20px 0 20px 20px;
+ font-family: 'QuickSand';
+ font-size: 40px;
+ color:#f1356d;
+ margin: 200px 0 10px 10px;
+
+}
+
+.faculty-profile h3
+{
+ padding : 20px;
+ font-size: 20px;
+ color:#f1356d;
+ margin:0 10px 10px 10px;
+
+}
+
+
+
+
