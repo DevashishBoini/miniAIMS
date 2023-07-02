@@ -29,7 +29,7 @@ const AdminFacultyAddCourse = () => {
 
        const abortCont= new AbortController();
 
-       fetch(url,{signal: abortCont.signal},
+       fetch(url,
        {
         method:'POST',
         headers: {"Content-Type":"application/json"},
