@@ -41,7 +41,7 @@ body {
   border-radius: 20px;
   padding: 40px;
   box-sizing: border-box;
-  background: #ecf0f3;
+  background: #ecf3ed;
   box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 
@@ -264,12 +264,10 @@ button:active,
 /* ADMIN PAGE CSS END */
 
 /* ADMIN-FACULTY LIST CSS START */
-/* .table-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+.table-container {
+   position:relative;
+   top:200px;
+}
 
 .AdminFacultyList,
 .AdminStudentList,
@@ -288,10 +286,11 @@ button:active,
 .text {
   position: absolute;
   top: 80px;
+  height:100px;
 }
 
 .text {
-  color: #ecf0f3;
+  color: #f3eeec;
   font-size: 40px;
   font-weight: bold;
   font-family: sans-serif;
