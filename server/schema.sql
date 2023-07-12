@@ -60,7 +60,7 @@ CREATE TABLE students_courses
     FOREIGN KEY(course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
-INSERT INTO admin_credentials (admin_id,password) VALUES (1,admin);
+INSERT INTO admin_credentials (admin_id,password) VALUES (1,'admin');
 
 
 --getStudentCourses

@@ -30,7 +30,7 @@ function App() {
        <Route path="/student" component={StudentRoutes} />
     </ProtectedRoute>
     
-
+   
     </Switch>
 
     </div>

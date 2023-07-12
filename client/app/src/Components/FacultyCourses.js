@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
+import {  useParams } from "react-router-dom/cjs/react-router-dom";
 import {Link} from "react-router-dom";
 import FacultyCourseList from "./FacultyCourseList";
 
@@ -65,7 +65,7 @@ const FacultyCourses = () =>
               <>
               <FacultyCourseList courses={info.facultyCourses} name={info.facultyName.name } url={url}/>
               <Link to={`/faculty/${facId}/courses/addCourse`}>
-              <button>
+              <button className='add-btn'>
                Add Course
               </button>
               </Link>

@@ -1,7 +1,4 @@
 import {useState,useEffect} from 'react';
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import {Link} from "react-router-dom";
-
 
 const AdminCourseList = () => {
     
@@ -61,27 +58,33 @@ const AdminCourseList = () => {
           {
             info &&
             <>
-            <h1>All Courses List</h1>
-            <table>
-                <tr>
-                    <th>Course ID</th>
-                    <th>Course </th>
-                    <th>Faculty ID</th>
-                    <th>Faculty</th>
-                </tr>
-                {
-                    info.map((course) =>
-                    (
-                      <tr key={course.course_id}>
-                        <th>{course.course_id}</th>
-                        <th>{course.course_name}</th>
-                        <th>{course.fac_id}</th>
-                        <th>{course.fac_name}</th>
-                      </tr>
-                    )
-                    )
-                }
-            </table>
+            <h2 className='text'>All Courses List</h2>
+            <div className="table-container">
+              <table className="neumorphic">
+                  <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course </th>
+                        <th>Faculty ID</th>
+                        <th>Faculty</th>
+                    </tr>
+                  </thead>
+                  {
+                      info.map((course) =>
+                      (
+                        <tbody>
+                          <tr key={course.course_id}>
+                            <td>{course.course_id}</td>
+                            <td>{course.course_name}</td>
+                            <td>{course.fac_id}</td>
+                            <td>{course.fac_name}</td>
+                          </tr>
+                        </tbody>
+                      )
+                      )
+                  }
+              </table>
+            </div>
             </>
           } 
      </div>

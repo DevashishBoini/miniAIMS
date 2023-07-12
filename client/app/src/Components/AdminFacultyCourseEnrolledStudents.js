@@ -1,133 +1,113 @@
+import { useState, useEffect } from "react";
+import {useParams } from "react-router-dom/cjs/react-router-dom";
+import { Link } from "react-router-dom";
 
+const AdminFacultyCourseEnrolledStudents = () => {
+  const { facId, courseId } = useParams();
 
-import {useState,useEffect} from 'react';
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import {Link} from "react-router-dom";
+  const [info, setInfo] = useState(null);
+  const [isPending, setisPending] = useState(true);
+  const [error, setError] = useState(null);
 
-const AdminFacultyCourseEnrolledStudents = () => 
-{
+  const url = `http://localhost:8080/faculty/${facId}/courses/${courseId}/studentsEnrolled`;
 
-    const {facId,courseId}=useParams();
+  useEffect(() => {
+    const abortCont = new AbortController();
 
-    const [info,setInfo]=useState(null);
-    const [isPending,setisPending]=useState(true);
-    const [error,setError]=useState(null);
-
-    const url=`http://localhost:8080/faculty/${facId}/courses/${courseId}/studentsEnrolled`;
-
-        useEffect(()=>{
-
-        const abortCont= new AbortController();
-
-        fetch(url, {signal: abortCont.signal}).then(res =>{
-    
-        if(!res.ok)
-        {
-            throw Error("data couldn't be fetched");
+    fetch(url, { signal: abortCont.signal })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("data couldn't be fetched");
         }
         return res.json();
-        }
-        ).then((data)=>
-        {
-          console.log(data);
-          setInfo(data);  
+      })
+      .then((data) => {
+        console.log(data);
+        setInfo(data);
+        setisPending(false);
+        setError(null);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          console.log("Fetch Aborted");
+        } else {
           setisPending(false);
-          setError(null);
+          setError(err.message);
         }
-        ).catch((err) =>
-          {
-            if(err.name==="AbortError")
-            {
-                console.log("Fetch Aborted");
-            }
-            
-            else
-            {
-                setisPending(false);
-                setError(err.message);
-            }
-            
-          })
+      });
 
-          return () => {
-          abortCont.abort();  
-          }
-        },[url]);
+    return () => {
+      abortCont.abort();
+    };
+  }, [url]);
 
-
-
-
-
-      const handleDelete=(studId) =>
-      {
-      fetch(`${url}/unEnrollStudent/${studId}`,{
-      method: "DELETE"
-      }
-      ).then((resp)=>
-      {
-        if(!resp.ok)
-        {
-            throw new Error('Delete request failed')
+  const handleDelete = (studId) => {
+    fetch(`${url}/unEnrollStudent/${studId}`, {
+      method: "DELETE",
+    })
+      .then((resp) => {
+        if (!resp.ok) {
+          throw new Error("Delete request failed");
         }
-        
+
         window.location.reload();
-      }
-      ).then(() =>
-        console.log('Unenrolled from the course')
-      )
-      }
+      })
+      .then(() => console.log("Unenrolled from the course"));
+  };
 
-
-
-
-
-
-
-    return ( 
-
-        <div className="FacultyCourseEnrolledList">
-          {isPending && <div>Loading...</div>}
-          {error && <div> {error} </div>}
-          {
-              info && 
-              <>
-              <h2>{info.facultyName.name}</h2>
-              <h2>Course:{info.courseName.name}</h2>
-              <table>
-              <tr>
-              <th>Student Id</th>
-              <th>Name</th>
-              <th>Grade</th>
-              <th>Remove Student</th>
-              <th>Update Grade</th>
-              </tr>
-              {
-                info.Students.map((student) =>
-                
-                <tr key={student.stud_id}>
-                <th>{student.stud_id}</th>
-                <th>{student.name}</th>
-                <th>{student.grade}</th>
-                <th>
-                  <button onClick={() =>
-                {
-                  handleDelete(student.stud_id);
-                }
-                }>UnEnroll</button>  
-                </th>
-              <Link to={`/admin/facultyList/faculty/${facId}/courses/${courseId}/studentsEnrolled/updateGrade/${info.courseName.name}/${student.stud_id}/${student.name}`}>
-                <button>Update</button>
-                </Link>
-                </tr>
-                )
-              } 
-              </table>
-              
-              </>
-           }
+  return (
+    <div className="FacultyCourseEnrolledList">
+      {isPending && <div>Loading...</div>}
+      {error && <div> {error} </div>}
+      {info && (
+        <>
+          <div className="name-courselist">
+            <span className="name">{info.facultyName.name}</span>
+            <span className="name">Course: {info.courseName.name}</span>
           </div>
+          <div className="table-container">
+            <table className="neumorphic">
+              <thead>
+                <tr>
+                  <th>Student Id</th>
+                  <th>Name</th>
+                  <th>Grade</th>
+                  <th>Remove Student</th>
+                  <th>Update Grade</th>
+                </tr>
+              </thead>
+              {info.Students.map((student) => (
+                <tbody>
+                  <tr key={student.stud_id}>
+                    <td>{student.stud_id}</td>
+                    <td>{student.name}</td>
+                    <td>{student.grade}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          handleDelete(student.stud_id);
+                        }}
+                      >
+                        UnEnroll
+                      </button>
+                    </td>
+                    <td>
+                      <Link
+                        to={`/admin/facultyList/faculty/${facId}/courses/${courseId}/studentsEnrolled/updateGrade/${info.courseName.name}/${student.stud_id}/${student.name}`}
+                        className="-link"
+                      >
+                        <button>Update</button>
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
-     );
-}
- 
 export default AdminFacultyCourseEnrolledStudents;

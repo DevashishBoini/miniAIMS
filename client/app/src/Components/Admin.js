@@ -1,35 +1,33 @@
-import {useState,useEffect} from 'react';
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Admin = () => 
-{
-    return ( 
+const Admin = () => {
+  return (
+    <div className="admin">
+        <div className="admin-content">
+              <ul class="buttons">
+                <div className="faculty-button">
+                    <li>
+                      <Link to="/admin/facultyList">
+                        <span>Faculty</span>
+                      </Link>
+                    </li>
+                </div>
+                <div className="students-courses-button">
+                    <li>
+                      <Link to="/admin/studentList">
+                        <span>Students</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin/courseList">
+                        <span>Courses</span>
+                      </Link>
+                    </li>
+                </div>
+              </ul>
+          </div>
+        </div>
+  );
+};
 
-    <div className="Admin">
-     <Link to="/admin/facultyList">
-     <button>
-      Faculty List  
-     </button>
-     </Link>
-     <Link to="/admin/studentList">
-     <button>
-      Student List  
-     </button>
-     </Link>
-     <Link to="/admin/courseList">
-     <button>
-      Course List  
-     </button>
-     </Link>
-
-
-    </div>
-
-     );
-}
- 
 export default Admin;
-
-
-

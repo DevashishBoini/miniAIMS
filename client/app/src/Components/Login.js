@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useHistory,Redirect } from "react-router-dom";
+import {useState } from "react";
+import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 const Login = () => {
-  const [role, setRole] = useState('admin');
+  const [role, setRole] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -74,39 +74,49 @@ const Login = () => {
   
 
   return (
-    <div className="Login">
-      <h1>Login</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label>Role:</label>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="admin">admin</option>
-          <option value="faculty">faculty</option>
-          <option value="student">student</option>
-        </select>
-
-        <label>Id:</label>
-        <input
-          type="text"
-          required
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-
-        <label>Password:</label>
-        <input
-          type="text"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        {!isPending && <button>Submit</button>}
-        {error && <div>{error}</div>}
-        {isPending && <button disabled>Submitting</button>}
-      </form>
+    <div className="body login-body">
+      <div className="container">
+        <div className="brand-logo"></div>
+        <div className="brand-title">LOGIN</div>
+        <form onSubmit={(e) => handleSubmit(e)} className="inputs">
+          <div className="field-login">
+            {/* <label>ROLE</label> */}
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="select"
+            >
+              <option disabled selected value="">Select a Role</option>
+              <option value="admin">Admin</option>
+              <option value="faculty">Faculty</option>
+              <option value="student">Student</option>
+            </select>
+          </div>
+          <div className="field-login">
+            {/* <label>ID</label> */}
+            <input
+              type="text"
+              required
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              placeholder="ID"
+            />
+          </div>
+          <div className="field-login">
+            {/* <label>Password</label> */}
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+          </div>
+          {!isPending && <button className="submit-button">Submit</button>}
+          {error && <div>{error}</div>}
+          {isPending && <button disabled>Submitting</button>}
+        </form>
+      </div>
     </div>
   );
 
